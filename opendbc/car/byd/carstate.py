@@ -33,6 +33,14 @@ class CarState(CarStateBase):
       ret.vEgoRaw = (ret.wheelSpeeds.rl + ret.wheelSpeeds.fl) / 2.0
       ret.standstill = ret.vEgoRaw < 0.01
       ret.vEgoCluster = ret.vEgo * 1.068 # FIXME: update dbc multiplier to get correct kph
+
+    elif self.CP.carFingerprint == CAR.BYD_SHARK:
+      ret.wheelSpeeds.fl = cp.vl["WHEEL_SPEEDS"]["FL"] * CV.KPH_TO_MS
+      ret.wheelSpeeds.rl = cp.vl["WHEEL_SPEEDS"]["RL"] * CV.KPH_TO_MS
+      ret.vEgoRaw = (ret.wheelSpeeds.rl + ret.wheelSpeeds.fl) / 2.0
+      ret.standstill = ret.vEgoRaw < 0.01
+      ret.vEgoCluster = ret.vEgo * 1.068 # TODO: update dbc multiplier to get correct kph
+
     else:
       # speed
       speed_kph = cp.vl["WHEELSPEED_CLEAN"]["WHEELSPEED_CLEAN"]

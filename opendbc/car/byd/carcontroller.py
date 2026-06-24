@@ -19,7 +19,7 @@ class CarController(CarControllerBase):
     self.apply_angle_last = 0.0
 
     # Vehicle model used for lateral limiting
-    self.VM = VehicleModel(get_safety_CP())
+    self.VM = VehicleModel(CP)
 
   def update(self, CC, CS, now_nanos):
     can_sends = []

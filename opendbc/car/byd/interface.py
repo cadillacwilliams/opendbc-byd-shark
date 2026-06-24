@@ -27,4 +27,7 @@ class CarInterface(CarInterfaceBase):
       ret.steerActuatorDelay = 0.1
       ret.steerLimitTimer = 0.4
 
+    elif candidate == CAR.BYD_SHARK:
+      ret.steerActuatorDelay = 0.1
+      ret.steerLimitTimer = 0.4 # TODO: confirm this value
     return ret

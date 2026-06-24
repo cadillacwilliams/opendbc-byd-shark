@@ -72,6 +72,14 @@ class BydSealionPlatformConfig(PlatformConfig):
   wmis: set[WMI] = field(default_factory=set)
   years: set[ModelYear] = field(default_factory=set)
 
+@dataclass
+class BydSharkPlatformConfig(PlatformConfig):
+  dbc_dict: DbcDict = field(default_factory=lambda: {
+    Bus.pt: 'byd_shark',
+  })
+  wmis: set[WMI] = field(default_factory=set)
+  years: set[ModelYear] = field(default_factory=set)
+
 
 class CAR(Platforms):
   BYD_ATTO_3 = BydPlatformConfig(
@@ -84,6 +92,10 @@ class CAR(Platforms):
     [BydCarDocs("BYD Sealion 7 2024")],
     CarSpecs(mass=2090., wheelbase=2.72, steerRatio=16.0, centerToFrontRatio=0.44)
   )
+  BYD_SHARK = BydSharkPlatformConfig(
+    [BydCarDocs("BYD Shark 2025")],
+    CarSpecs(mass=2710., wheelbase=3.26, steerRatio=17.0, centerToFrontRatio=0.50)
+  )# TODO confirm specs
 
 
 def match_fw_to_car_fuzzy(live_fw_versions, vin, offline_fw_versions) -> set[str]:
