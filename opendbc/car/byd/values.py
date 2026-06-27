@@ -45,6 +45,7 @@ class ModelYear(StrEnum):
   P_2023 = "P"
   R_2024 = "R"
   S_2025 = "S"
+  T_2026 = "T"
 
 
 @dataclass
@@ -89,9 +90,11 @@ class CAR(Platforms):
     CarSpecs(mass=2090., wheelbase=2.72, steerRatio=16.0, centerToFrontRatio=0.44)
   )
   BYD_SHARK = BydSharkPlatformConfig(
-    [BydCarDocs("BYD Shark 2025")],
-    CarSpecs(mass=2710., wheelbase=3.26, steerRatio=17.0, centerToFrontRatio=0.50)
-  )# TODO confirm specs
+    [BydCarDocs("BYD Shark 2025-26")],
+    CarSpecs(mass=2710., wheelbase=3.26, steerRatio=17.0, centerToFrontRatio=0.50),
+    wmis={WMI.BYD_AUTO},
+    years={ModelYear.S_2025, ModelYear.T_2026},
+  )
 
 
 def match_fw_to_car_fuzzy(live_fw_versions, vin, offline_fw_versions) -> set[str]:

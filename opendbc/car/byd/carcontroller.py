@@ -1,13 +1,13 @@
 from opendbc.can.packer import CANPacker
-from opendbc.car import Bus
-from opendbc.car.lateral import apply_steer_angle_limits_vm
+from opendbc.car import Bus # bus.pt is the powertrain bus
+from opendbc.car.lateral import apply_steer_angle_limits_vm # apply_steer_angle_limits_vm is a function that applies the steering angle limits to the steering angle
 from opendbc.car.interfaces import CarControllerBase
-from opendbc.car.byd import bydcan
+from opendbc.car.byd import bydcan # bydcan is a module that contains the functions to create the CAN messages for the BYD car
 from opendbc.car.byd.values import CarControllerParams
 from opendbc.car.vehicle_model import VehicleModel
 
 
-def get_safety_CP():
+def get_safety_CP():#
   from opendbc.car.byd.interface import CarInterface
   return CarInterface.get_non_essential_params("BYD_ATTO_3")
 
@@ -18,11 +18,11 @@ class CarController(CarControllerBase):
     self.packer = CANPacker(dbc_names[Bus.pt])
     self.apply_angle_last = 0.0
 
-    # Vehicle model used for lateral limiting
+    # create a Vehicle model used for lateral limiting
     self.VM = VehicleModel(CP)
 
   def update(self, CC, CS, now_nanos):
-    can_sends = []
+    can_sends = [] # create a list to store the CAN messages to be sent
     actuators = CC.actuators
 
     if self.frame % 2:
