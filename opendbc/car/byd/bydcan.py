@@ -6,15 +6,15 @@ def create_steering_control(packer, apply_angle: float, lat_active: bool, counte
   # Stock saturates the rate limits at ±299 when engaged, 0 when disengaged
   rate_limit = 299 if lat_active else 0
   values = {
-    "STEER_REQ": 1 if lat_active else 0,
-    "STEER_REQ_ACTIVE_LOW": 0 if lat_active else 1,
-    "STEER_ANGLE": apply_angle,
-    "ANGLE_RATE_LIMIT_UPPER": rate_limit,
-    "ANGLE_RATE_LIMIT_LOWER": -rate_limit,
-    "E2E_ALIVE_1": 1,
-    "E2E_ALIVE_2": 1,
-    "SET_ME_FF": 0xFF,
-    "SET_ME_F": 0xF,
+    "STEER_REQ": 1 if lat_active else 0,#Requests steering authority when active.
+    "STEER_REQ_ACTIVE_LOW": 0 if lat_active else 1,#Companion signal with inverse logic
+    "STEER_ANGLE": apply_angle, #this is the actual steering angle being sent to the EPS in degrees
+    "ANGLE_RATE_LIMIT_UPPER": rate_limit, #Positive allowed angle rate limit
+    "ANGLE_RATE_LIMIT_LOWER": -rate_limit, #Negative allowed angle rate limit
+    "E2E_ALIVE_1": 1, #Fixed alive/validity bit expected by the receiving module ??
+    "E2E_ALIVE_2": 1, #Fixed alive/validity bit expected by the receiving module ??
+    "SET_ME_FF": 0xFF, #Unknown constant field; stock message uses 0xFF
+    "SET_ME_F": 0xF, #Unknown constant field; stock message uses 0xF
     "COUNTER": counter,
   }
   return packer.make_can_msg("STEERING_MODULE_ADAS", 0, values)
