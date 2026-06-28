@@ -12,7 +12,7 @@ class CarInterface(CarInterfaceBase):
   @staticmethod
   def _get_params(ret: structs.CarParams, candidate, fingerprint, car_fw, alpha_long, is_release, docs) -> structs.CarParams:
     ret.brand = "byd"
-    ret.dashcamOnly = True
+    ret.dashcamOnly = False
     ret.radarUnavailable = True
     ret.alphaLongitudinalAvailable = False
 
